@@ -1,12 +1,12 @@
 import React from 'react'
-import styles from './FinalAmount'
+import styles from './FinalAmount.module.css'
 
 const FinalAmount = ({ expenses }) => {
 	function CalculateTotalAmount() {
 		return expenses.reduce((total, expense) => total + parseFloat(expense.amount), 0);
 	}
 	return (
-		<div>
+		<div className={styles.div}>
 			TotalExpense: NOK {CalculateTotalAmount()}
 		</div>
 	)

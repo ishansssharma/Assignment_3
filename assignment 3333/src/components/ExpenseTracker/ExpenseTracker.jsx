@@ -91,10 +91,10 @@ const ExpenseTracker = () => {
 				</form>
 			</section>
 			<section>
-				<ul>
+				<ul className={styles.ul}>
 					{
 						expenses.map((expense) => {
-							return <li key={expense.id}>{`${expense.title} NOK ${expense.amount} ${new Date(expense.date).toLocaleDateString()} ${expense.category}`}
+							return <li className={styles.formli} key={expense.id}><span className={styles.litext}>Title</span> {`${expense.title}`} <span className={styles.litext}>NOK</span>  {`${expense.amount}`}  <span className={styles.litext}>Date:</span>{`${new Date(expense.date).toLocaleDateString()}`}  <span className={styles.litext}>Category:</span>{`${expense.category}`}
 								<DeleteSingleExpense id={expense.id} dispatch={dispatch} /></li>
 						})
 					}
