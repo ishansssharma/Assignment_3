@@ -11,7 +11,7 @@ const ExpenseTracker = () => {
 	const [inputExpenseAmount, setInputExpenseAmount] = useState("");
 	const [inputExpenseDate, setInputExpenseDate] = useState("");
 	const [inputExpenseCategory, setInputExpenseCategory] = useState("");
-
+	const [errors, setErrors] = useState([]);
 
 
 	const reducer = (state, action) => {
@@ -37,23 +37,40 @@ const ExpenseTracker = () => {
 		}
 	}
 
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch({
-			type: "ADD_EXPENSE",
-			payload: {
-				title: inputExpenseTitle,
-				amount: inputExpenseAmount,
-				date: inputExpenseDate,
-				category: inputExpenseCategory
-			}
-		});
-		console.log('Submitted:', inputExpenseTitle, inputExpenseAmount, inputExpenseDate, inputExpenseCategory); // Debugging form submission
+		let currentErrors = [];
+		if (!inputExpenseTitle) currentErrors.push("Please enter an expense title.");
+		if (!inputExpenseAmount) currentErrors.push("Please enter the expense amount");
+		if (!inputExpenseDate) currentErrors.push("Please enter the expense date")
 
-		setInputExpenseTitle("");
-		setInputExpenseAmount("");
-		setInputExpenseDate("");
-		setInputExpenseCategory("");
+		if (currentErrors.length === 0) {
+			dispatch({
+				type: "ADD_EXPENSE",
+				payload: {
+					title: inputExpenseTitle,
+					amount: inputExpenseAmount,
+					date: inputExpenseDate,
+					category: inputExpenseCategory
+				}
+			});
+
+
+			setInputExpenseTitle("");
+			setInputExpenseAmount("");
+			setInputExpenseDate("");
+			setInputExpenseCategory("");
+			setErrors([])
+
+		} else {
+			setErrors(currentErrors);
+		}
+
+
+
+
 
 	}
 
@@ -64,6 +81,9 @@ const ExpenseTracker = () => {
 			<h1 className={styles.header}>Track your expense!</h1>
 			<section className={styles.formcontainer}>
 				<form className={styles.expenseform} onSubmit={handleSubmit}>
+					<RenderErrors errors={errors} />
+
+
 					<label htmlFor="">Expense Title</label>
 					<input onChange={(e) => setInputExpenseTitle(e.target.value)} className={styles.forminput} type="text" />
 
@@ -86,6 +106,7 @@ const ExpenseTracker = () => {
 
 
 					</select>
+
 
 					<button type='submit' className={styles.formbutton}>
 						Submit
