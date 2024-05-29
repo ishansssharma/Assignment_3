@@ -15,7 +15,7 @@ const ExpenseTracker = () => {
 
 
 	const reducer = (state, action) => {
-		console.log(action); // Debugging reducer calls
+
 		switch (action.type) {
 			case "ADD_EXPENSE":
 				return [...state, {
@@ -45,6 +45,8 @@ const ExpenseTracker = () => {
 		if (!inputExpenseTitle) currentErrors.push("Please enter an expense title.");
 		if (!inputExpenseAmount) currentErrors.push("Please enter the expense amount");
 		if (!inputExpenseDate) currentErrors.push("Please enter the expense date")
+
+		console.log("Errors Detected:", currentErrors);
 
 		if (currentErrors.length === 0) {
 			dispatch({
@@ -81,7 +83,8 @@ const ExpenseTracker = () => {
 			<h1 className={styles.header}>Track your expense!</h1>
 			<section className={styles.formcontainer}>
 				<form className={styles.expenseform} onSubmit={handleSubmit}>
-					<RenderErrors errors={errors} />
+
+
 
 
 					<label htmlFor="">Expense Title</label>
