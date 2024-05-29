@@ -49,6 +49,12 @@ const ExpenseTracker = () => {
 			}
 		});
 		console.log('Submitted:', inputExpenseTitle, inputExpenseAmount, inputExpenseDate, inputExpenseCategory); // Debugging form submission
+
+		setInputExpenseTitle("");
+		setInputExpenseAmount("");
+		setInputExpenseDate("");
+		setInputExpenseCategory("");
+
 	}
 
 	const [expenses, dispatch] = useReducer(reducer, [])
